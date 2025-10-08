@@ -1,0 +1,7 @@
+streamlit
+pyttsx3
+llama-cpp-python
+requests
+PyMuPDF
+python-docx
+python-dotenv

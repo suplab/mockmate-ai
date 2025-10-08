@@ -1,0 +1,9 @@
+streamlit
+openai
+python-dotenv
+PyMuPDF
+python-docx
+pyttsx3
+llama-cpp-python
+pydub
+requests

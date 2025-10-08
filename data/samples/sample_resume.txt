@@ -1,0 +1,13 @@
+John Doe
+john.doe@example.com
++91 9876543210
+
+Summary:
+Senior Software Engineer with 8 years experience in Java, Spring Boot, REST APIs, Microservices, AWS.
+
+Experience:
+- Lead Developer at Acme Corp (2020-2024): Designed microservices, mentored team, handled stakeholder management.
+- Senior Developer at OldTech (2016-2020): Maintained AS/400 systems, RPGLE, SYNON and IBM i migrations.
+
+Skills:
+Java, Spring Boot, REST, Microservices, AWS, AS400, RPGLE, IBMi, SYNON, Project Management, Agile delivery, Stakeholder Management
