@@ -5,6 +5,7 @@ from core.parser import parse_resume_file
 from core.persona_builder import build_persona
 from core.interviewer_agent import generate_question
 from core.feedback_generator import generate_feedback
+from core.resume_summary import summarize_resume
 
 USE_TTS = os.getenv('USE_TTS', 'true').lower() == 'true'
 AUDIO_DIR = os.getenv('AUDIO_DIR', './data/audio')
@@ -40,7 +41,12 @@ if mode == 'Upload Resume':
         if st.button('Create Interview Persona'):
             persona = build_persona(parsed)
             st.session_state['persona'] = persona
-            st.session_state['resume_excerpt'] = '\n'.join(parsed['raw_text'].splitlines()[:20])
+            st.session_state['resume_excerpt'] = '\n'.join(parsed['raw_text'].splitlines()[:40])
+            # 🔹 Generate and store the skill-focused summary once
+            st.session_state['resume_summary'] = summarize_resume(
+                persona.get('expertise', []),
+                parsed.get('raw_text', '')
+            )
             st.success('Persona created — switch to Live Q&A')
             st.json(persona)
 
@@ -58,7 +64,8 @@ elif mode == 'Live Q&A':
         c1, c2 = st.columns([3,1])
         with c1:
             if st.button('Generate Next Question'):
-                q = generate_question(persona, resume_excerpt)
+                resume_summary = st.session_state.get('resume_summary', '')
+                q = generate_question(persona, resume_summary)
                 st.session_state['current_question'] = q
                 st.session_state['qa_history'].append({'q': q, 'a': None, 'feedback': None})
         with c2:

@@ -7,6 +7,8 @@ load_dotenv()
 USE_LLAMA = os.getenv('USE_LLAMA', 'false').lower() == 'true'
 LLAMA_PATH = os.getenv('LLAMA_PATH', '')
 OPENAI_API_KEY = os.getenv('OPENAI_API_KEY', '')
+OLLAMA_CONTEXT_LENGTH = int(os.getenv('OLLAMA_CONTEXT_LENGTH', 4096))
+OLLAMA_KV_CACHE_TYPE = os.getenv('OLLAMA_KV_CACHE_TYPE', 'q4_0')
 
 class LLMWrapper:
     def __init__(self):
@@ -47,4 +49,5 @@ def ask_system(system_prompt: str, user_prompt: str, temperature=0.2):
         {'role': 'system', 'content': system_prompt},
         {'role': 'user', 'content': user_prompt}
     ]
+    
     return llm.chat(messages, temperature=temperature)

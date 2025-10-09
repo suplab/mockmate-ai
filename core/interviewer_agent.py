@@ -5,19 +5,16 @@ from utils.prompt_templates import FEEDBACK_PROMPT
 
 MAX_SKILLS = 8 # only top 8 skills
 
-def generate_question(persona: dict, resume_excerpt: str, max_chars=2000) -> str:
+def generate_question(persona: dict, resume_summary: str) -> str:
     sys = INTERVIEW_SYSTEM_PROMPT
     user = INTERVIEW_Q_PROMPT.format(
         role=persona['role'],
         seniority=persona['seniority'],
         candidate_name=persona['candidate_name'],
         skills=', '.join(persona['expertise'][:MAX_SKILLS]),
-        resume_excerpt=resume_excerpt or ''
+        resume_excerpt=resume_summary or ''
         )
     
-    # truncate prompt safely by characters
-    if len(prompt) > max_chars:
-        prompt = prompt[:max_chars]
 
     resp = ask_system(sys, user, temperature=0.3)
     return resp.strip()
